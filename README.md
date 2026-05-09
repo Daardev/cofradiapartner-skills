@@ -90,7 +90,7 @@ npx @cofradiapartner/skills install skill-apple-ui --agent claude
 ### Instalar varias skills
 
 ```bash
-npx @cofradiapartner/skills install skill-apple-ui skill-npm-release-pipeline --agent codex
+npx @cofradiapartner/skills install skill-apple-ui skill-brand-ui --agent codex
 ```
 
 ### Instalar todas las skills
@@ -192,7 +192,6 @@ npm publish --access public
 ## Skills incluidas
 
 - `skill-apple-ui`
-- `skill-npm-release-pipeline`
 
 ## Como agregar nuevos agentes
 
