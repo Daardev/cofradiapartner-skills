@@ -1,0 +1,48 @@
+import { confirm } from "@clack/prompts";
+import type { AgentId } from "../../types/agent";
+import { updateInstalledSkill } from "../../core/update-installed-skill";
+import { AppError } from "../../utils/errors";
+import { logger } from "../../utils/logger";
+
+export interface UpdateCommandOptions {
+  agent?: AgentId;
+  target?: string;
+  dryRun?: boolean;
+  yes?: boolean;
+}
+
+export async function runUpdateCommand(
+  skillId: string,
+  options: UpdateCommandOptions
+): Promise<void> {
+  if (!options.dryRun && !options.yes) {
+    const isInteractive = Boolean(process.stdin.isTTY && process.stdout.isTTY);
+    if (!isInteractive) {
+      throw new AppError(
+        "INVALID_ARGUMENT",
+        "Destructive update requires confirmation in interactive mode or explicit --yes"
+      );
+    }
+
+    const accepted = await confirm({
+      message: `Confirmas actualizar la skill instalada \"${skillId}\"?`
+    });
+
+    if (!accepted) {
+      throw new AppError("USER_CANCELLED", "Operation cancelled by user");
+    }
+  }
+
+  const updatedPath = await updateInstalledSkill({
+    skillId,
+    agentId: options.agent,
+    target: options.target,
+    dryRun: options.dryRun
+  });
+
+  if (options.dryRun) {
+    logger.info(`Dry run: se actualizaria ${updatedPath}`);
+  } else {
+    logger.success(`Skill actualizada: ${updatedPath}`);
+  }
+}

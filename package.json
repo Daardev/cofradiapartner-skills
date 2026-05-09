@@ -1,0 +1,65 @@
+{
+  "name": "@cofradiapartner/skills",
+  "version": "0.1.0",
+  "description": "CLI para instalar skills reutilizables en agentes como Codex, Claude, OpenCode, Cursor y Windsurf.",
+  "type": "module",
+  "bin": {
+    "create-skill": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "skills",
+    "assets",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run lint && npm run test && npm run build",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish",
+    "pnpm:check": "pnpm install --frozen-lockfile && pnpm run typecheck && pnpm run test"
+  },
+  "keywords": [
+    "skills",
+    "ai",
+    "cli",
+    "codex",
+    "claude",
+    "opencode",
+    "cursor",
+    "windsurf",
+    "prompts",
+    "cofradiapartner"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@clack/prompts": "^1.3.0",
+    "commander": "^12.1.0",
+    "fs-extra": "^11.2.0",
+    "picocolors": "^1.0.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.12.12",
+    "@vitest/coverage-v8": "^1.6.0",
+    "@changesets/cli": "^2.29.7",
+    "eslint": "^9.2.0",
+    "prettier": "^3.2.5",
+    "typescript-eslint": "^8.43.0",
+    "tsup": "^8.1.0",
+    "tsx": "^4.10.2",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`dry-run > does not create files on install dry-run 1`] = `
+"{
+  "skillId": "skill-apple-ui",
+  "sourcePath": "<DRIVE>//Users//darwi//Desktop//Proyectos//npm-skill//skills//skill-apple-ui",
+  "targetPath": "<DRIVE>//Users//darwi//AppData//Local//Temp//dry-run-install-<TMP>//.codex//skills//skill-apple-ui",
+  "files": [
+    "skill.md",
+    "examples.md",
+    "README.md"
+  ],
+  "action": "dry-run"
+}"
+`;
