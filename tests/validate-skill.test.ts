@@ -64,7 +64,7 @@ describe("validateSkillDirectory", () => {
 
     await expect(
       validateSkillDirectory(path.join(tempRoot, "skill-test"))
-    ).rejects.toThrow("Missing file: skill-test\\skill.md");
+    ).rejects.toThrow(/Missing file: skill-test[\\/]+skill\.md/);
   });
 
   it("fails when name is missing", async () => {

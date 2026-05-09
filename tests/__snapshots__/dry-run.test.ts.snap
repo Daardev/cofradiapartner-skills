@@ -3,8 +3,8 @@
 exports[`dry-run > does not create files on install dry-run 1`] = `
 "{
   "skillId": "skill-apple-ui",
-  "sourcePath": "<DRIVE>//Users//darwi//Desktop//Proyectos//npm-skill//skills//skill-apple-ui",
-  "targetPath": "<DRIVE>//Users//darwi//AppData//Local//Temp//dry-run-install-<TMP>//.codex//skills//skill-apple-ui",
+  "sourcePath": "<SOURCE_SKILL>",
+  "targetPath": "<TARGET_SKILL>",
   "files": [
     "skill.md",
     "examples.md",

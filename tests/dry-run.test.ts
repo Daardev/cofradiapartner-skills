@@ -28,6 +28,13 @@ describe("dry-run", () => {
 
     const targetPath = result.items[0]!.targetPath;
     expect(await fs.pathExists(targetPath)).toBe(false);
-    expect(normalizeForSnapshot(JSON.stringify(result.items[0], null, 2))).toMatchSnapshot();
+
+    const item = result.items[0]!;
+    const normalizedItem = {
+      ...item,
+      sourcePath: "<SOURCE_SKILL>",
+      targetPath: "<TARGET_SKILL>"
+    };
+    expect(normalizeForSnapshot(JSON.stringify(normalizedItem, null, 2))).toMatchSnapshot();
   });
 });
