@@ -8,6 +8,3 @@ coverage
 .pnpm-store
 .opencode/
 *.tgz
-prompts/
-prompts-*.zip
-lista-modelos-y-orden-v3.md
