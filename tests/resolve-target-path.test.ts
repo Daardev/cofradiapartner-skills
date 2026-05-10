@@ -1,34 +1,41 @@
 import path from "node:path";
+import os from "node:os";
 import { describe, expect, it } from "vitest";
 import { resolveTargetPath } from "../src/core/resolve-target-path";
 
 describe("resolveTargetPath", () => {
   const projectRoot = path.resolve("virtual-project");
 
-  it("resolves default route for each agent from projectRoot", () => {
+  it("resolves unified local route for each agent from projectRoot", () => {
     expect(resolveTargetPath({ agentId: "claude", projectRoot })).toBe(
-      path.resolve(projectRoot, ".claude/skills")
+      path.resolve(projectRoot, ".agents/skills")
     );
     expect(resolveTargetPath({ agentId: "codex", projectRoot })).toBe(
-      path.resolve(projectRoot, ".codex/skills")
+      path.resolve(projectRoot, ".agents/skills")
     );
     expect(resolveTargetPath({ agentId: "opencode", projectRoot })).toBe(
-      path.resolve(projectRoot, ".opencode/skills")
+      path.resolve(projectRoot, ".agents/skills")
     );
     expect(resolveTargetPath({ agentId: "cursor", projectRoot })).toBe(
-      path.resolve(projectRoot, ".cursor/rules")
+      path.resolve(projectRoot, ".agents/skills")
     );
     expect(resolveTargetPath({ agentId: "windsurf", projectRoot })).toBe(
-      path.resolve(projectRoot, ".windsurf/rules")
+      path.resolve(projectRoot, ".agents/skills")
     );
     expect(resolveTargetPath({ agentId: "generic", projectRoot })).toBe(
-      path.resolve(projectRoot, "skills")
+      path.resolve(projectRoot, ".agents/skills")
     );
   });
 
-  it("uses claude route by default", () => {
+  it("uses unified local route by default", () => {
     expect(resolveTargetPath({ projectRoot })).toBe(
-      path.resolve(projectRoot, ".claude/skills")
+      path.resolve(projectRoot, ".agents/skills")
+    );
+  });
+
+  it("resolves global route in user home", () => {
+    expect(resolveTargetPath({ global: true, projectRoot })).toBe(
+      path.resolve(os.homedir(), ".agents", "skills")
     );
   });
 
@@ -37,6 +44,7 @@ describe("resolveTargetPath", () => {
       resolveTargetPath({
         agentId: "claude",
         customTargetPath: "docs/ai-skills",
+        global: true,
         projectRoot
       })
     ).toBe(path.resolve(projectRoot, "docs/ai-skills"));
@@ -44,7 +52,7 @@ describe("resolveTargetPath", () => {
 
   it("resolves against process.cwd when no projectRoot is provided", () => {
     expect(resolveTargetPath({ agentId: "generic" })).toBe(
-      path.resolve(process.cwd(), "skills")
+      path.resolve(process.cwd(), ".agents/skills")
     );
   });
 });

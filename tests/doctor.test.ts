@@ -8,6 +8,7 @@ describe("doctor", () => {
     expect(result.cwd.length).toBeGreaterThan(0);
     expect(result.agentsCount).toBe(6);
     expect(result.skillsCount).toBeGreaterThanOrEqual(1);
-    expect(result.suggestedRoutes.claude).toBe(".claude/skills");
+    expect(result.suggestedRoutes.claude).toBe(".agents/skills");
+    expect(result.globalSkillsPath.length).toBeGreaterThan(0);
   });
 });

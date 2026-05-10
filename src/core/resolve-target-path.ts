@@ -1,11 +1,13 @@
 import path from "node:path";
-import { DEFAULT_AGENT_ID, getAgentDefinition } from "./agents";
+import { DEFAULT_AGENT_ID } from "./agents";
 import type { AgentId } from "../types/agent";
+import { DEFAULT_LOCAL_SKILLS_DIR, getGlobalSkillsDir } from "../utils/paths";
 
 export interface ResolveTargetPathOptions {
   agentId?: AgentId;
   customTargetPath?: string;
   projectRoot?: string;
+  global?: boolean;
 }
 
 export function resolveTargetPath(options: ResolveTargetPathOptions = {}): string {
@@ -16,6 +18,11 @@ export function resolveTargetPath(options: ResolveTargetPathOptions = {}): strin
     return path.resolve(projectRoot, options.customTargetPath);
   }
 
-  const agent = getAgentDefinition(agentId);
-  return path.resolve(projectRoot, agent.defaultTargetPath);
+  void agentId;
+
+  if (options.global) {
+    return getGlobalSkillsDir();
+  }
+
+  return path.resolve(projectRoot, DEFAULT_LOCAL_SKILLS_DIR);
 }

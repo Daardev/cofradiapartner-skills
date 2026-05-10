@@ -28,10 +28,10 @@ create-skill agents
 create-skill validate <skillId>
 create-skill validate --all
 create-skill doctor
-create-skill install <skillId...> [--agent <agent>] [--target <path>] [--dry-run] [--yes] [--all]
+create-skill install <skillId...> [--agent <agent>] [--target <path>] [--global] [--dry-run] [--yes] [--all]
 create-skill create <skillName>
-create-skill remove <skillId> [--agent <agent>] [--target <path>] [--dry-run] [--yes]
-create-skill update <skillId> [--agent <agent>] [--target <path>] [--dry-run]
+create-skill remove <skillId> [--agent <agent>] [--target <path>] [--global] [--dry-run] [--yes]
+create-skill update <skillId> [--agent <agent>] [--target <path>] [--global] [--dry-run]
 ```
 
 ## Agentes soportados
@@ -45,14 +45,16 @@ create-skill update <skillId> [--agent <agent>] [--target <path>] [--dry-run]
 
 ## Rutas por defecto
 
-Todas las rutas destino se resuelven contra `process.cwd()`.
+- Proyecto local: `.agents/skills`
+- Instalacion global: `~/.agents/skills`
 
-- `claude` -> `.claude/skills`
-- `codex` -> `.codex/skills`
-- `opencode` -> `.opencode/skills`
-- `cursor` -> `.cursor/rules`
-- `windsurf` -> `.windsurf/rules`
-- `generic` -> `skills`
+Precedencia de resolucion:
+
+1. `--target`
+2. `--global`
+3. `.agents/skills` relativo a `process.cwd()`
+
+`--agent` se mantiene como metadata compatible, pero ya no cambia la carpeta destino.
 
 ## sourceSkillsDir vs targetSkillsDir
 
@@ -105,6 +107,12 @@ npx @cofradiapartner/skills install --all --agent opencode
 npx @cofradiapartner/skills install skill-apple-ui --agent claude --target docs/ai-skills
 ```
 
+### Instalar global
+
+```bash
+npx @cofradiapartner/skills install skill-apple-ui --global
+```
+
 ### Dry run
 
 ```bash
@@ -145,6 +153,18 @@ npx @cofradiapartner/skills remove skill-apple-ui --agent claude
 
 ```bash
 npx @cofradiapartner/skills update skill-apple-ui --agent claude
+```
+
+### Actualizar skill global
+
+```bash
+npx @cofradiapartner/skills update skill-apple-ui --global
+```
+
+### Eliminar skill global
+
+```bash
+npx @cofradiapartner/skills remove skill-apple-ui --global
 ```
 
 ## Protecciones importantes
@@ -196,6 +216,6 @@ npm publish --access public
 ## Como agregar nuevos agentes
 
 1. Agregar el nuevo `AgentId` en `src/types/agent.ts`.
-2. Agregar su definicion en `src/core/agents.ts` con ruta por defecto.
-3. Verificar resolucion de rutas en `src/core/resolve-target-path.ts`.
+2. Agregar su definicion en `src/core/agents.ts` para metadata y compatibilidad.
+3. Verificar que la UX asociada al agente siga consistente, aunque la instalacion se resuelve en `.agents/skills`.
 4. Agregar/ajustar tests en `tests/agents.test.ts` y `tests/resolve-target-path.test.ts`.
