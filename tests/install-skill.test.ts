@@ -1,7 +1,7 @@
-import os from "node:os";
 import path from "node:path";
+import os from "node:os";
 import fs from "fs-extra";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { installSkills } from "../src/core/install-skill";
 
 const tempRoots: string[] = [];
@@ -14,29 +14,43 @@ afterEach(async () => {
 });
 
 describe("installSkills", () => {
-  it("installs skill in all agent default routes", async () => {
+  it("installs skill in unified local route for all agents", async () => {
     const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "install-all-agents-"));
-    tempRoots.push(tempRoot);
+    const agents = ["claude", "codex", "opencode", "cursor", "windsurf", "generic"] as const;
 
-    const agents = [
-      ["claude", ".claude/skills"],
-      ["codex", ".codex/skills"],
-      ["opencode", ".opencode/skills"],
-      ["cursor", ".cursor/rules"],
-      ["windsurf", ".windsurf/rules"],
-      ["generic", "skills"]
-    ] as const;
-
-    for (const [agent, relativePath] of agents) {
+    for (const agent of agents) {
+      const projectRoot = path.join(tempRoot, agent);
+      tempRoots.push(projectRoot);
       const result = await installSkills({
         skillIds: ["skill-apple-ui"],
         agentId: agent,
-        projectRoot: tempRoot
+        projectRoot
       });
       expect(result.items[0]?.targetPath).toBe(
-        path.resolve(tempRoot, relativePath, "skill-apple-ui")
+        path.resolve(projectRoot, ".agents/skills", "skill-apple-ui")
       );
       expect(await fs.pathExists(result.items[0]!.targetPath)).toBe(true);
+    }
+  });
+
+  it("installs skill in unified global route", async () => {
+    const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "install-global-"));
+    tempRoots.push(tempHome);
+    const homedirSpy = vi.spyOn(os, "homedir").mockReturnValue(tempHome);
+
+    try {
+      const result = await installSkills({
+        skillIds: ["skill-apple-ui"],
+        global: true,
+        projectRoot: path.join(tempHome, "project")
+      });
+
+      expect(result.items[0]?.targetPath).toBe(
+        path.resolve(tempHome, ".agents/skills", "skill-apple-ui")
+      );
+      expect(await fs.pathExists(result.items[0]!.targetPath)).toBe(true);
+    } finally {
+      homedirSpy.mockRestore();
     }
   });
 

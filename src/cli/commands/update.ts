@@ -7,6 +7,7 @@ import { logger } from "../../utils/logger";
 export interface UpdateCommandOptions {
   agent?: AgentId;
   target?: string;
+  global?: boolean;
   dryRun?: boolean;
   yes?: boolean;
 }
@@ -37,6 +38,7 @@ export async function runUpdateCommand(
     skillId,
     agentId: options.agent,
     target: options.target,
+    global: options.global,
     dryRun: options.dryRun
   });
 

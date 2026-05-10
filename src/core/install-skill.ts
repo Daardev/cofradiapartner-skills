@@ -12,6 +12,7 @@ export interface InstallOptions {
   all?: boolean;
   agentId?: AgentId;
   target?: string;
+  global?: boolean;
   dryRun?: boolean;
   conflictStrategy?: ConflictStrategy;
   projectRoot?: string;
@@ -60,7 +61,8 @@ export async function installSkills(options: InstallOptions): Promise<InstallRes
   const targetRoot = resolveTargetPath({
     agentId: options.agentId,
     customTargetPath: options.target,
-    projectRoot: options.projectRoot
+    projectRoot: options.projectRoot,
+    global: options.global
   });
 
   const results: InstallResultItem[] = [];

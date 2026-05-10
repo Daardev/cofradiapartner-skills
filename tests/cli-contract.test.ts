@@ -40,4 +40,18 @@ describe("CLI contract", () => {
     ]);
     expect(code).toBe(1);
   });
+
+  it("accepts install --global", async () => {
+    const code = await runCli([
+      "node",
+      "create-skill",
+      "install",
+      "skill-apple-ui",
+      "--global",
+      "--target",
+      "docs/ai-skills",
+      "--dry-run"
+    ]);
+    expect(code).toBe(0);
+  });
 });

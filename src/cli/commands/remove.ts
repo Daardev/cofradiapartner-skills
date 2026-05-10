@@ -7,6 +7,7 @@ import { logger } from "../../utils/logger";
 export interface RemoveCommandOptions {
   agent?: AgentId;
   target?: string;
+  global?: boolean;
   yes?: boolean;
   dryRun?: boolean;
 }
@@ -37,6 +38,7 @@ export async function runRemoveCommand(
     skillId,
     agentId: options.agent,
     target: options.target,
+    global: options.global,
     dryRun: options.dryRun
   });
 

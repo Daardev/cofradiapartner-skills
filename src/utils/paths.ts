@@ -1,8 +1,10 @@
 import path from "node:path";
+import os from "node:os";
 import { fileURLToPath } from "node:url";
 import { existsSync } from "node:fs";
 
 const moduleDir = path.dirname(fileURLToPath(import.meta.url));
+export const DEFAULT_LOCAL_SKILLS_DIR = ".agents/skills";
 
 export function getPackageRootDir(): string {
   let current = moduleDir;
@@ -24,6 +26,10 @@ export function getPackageRootDir(): string {
 
 export function getSourceSkillsDir(): string {
   return path.resolve(getPackageRootDir(), "skills");
+}
+
+export function getGlobalSkillsDir(): string {
+  return path.join(os.homedir(), ".agents", "skills");
 }
 
 export function normalizePathForOutput(value: string): string {

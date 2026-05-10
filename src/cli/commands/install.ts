@@ -8,6 +8,7 @@ export interface InstallCommandOptions {
   agent?: AgentId;
   target?: string;
   all?: boolean;
+  global?: boolean;
   dryRun?: boolean;
   yes?: boolean;
   conflict?: ConflictStrategy;
@@ -26,6 +27,7 @@ export async function runInstallCommand(
       all: options.all,
       agentId: options.agent,
       target: options.target,
+      global: options.global,
       dryRun: options.dryRun,
       conflictStrategy
     });

@@ -37,8 +37,9 @@ export function createProgram(): Command {
   program
     .command("install")
     .argument("[skills...]")
-    .option("--agent <agent>", "Target agent")
+    .option("--agent <agent>", "Target agent metadata")
     .option("--target <path>", "Custom target path")
+    .option("--global", "Install into ~/.agents/skills")
     .option("--all", "Install all skills")
     .option("--dry-run", "Run without writing files")
     .option("--yes", "Skip safe confirmations")
@@ -48,6 +49,7 @@ export function createProgram(): Command {
         options: {
           agent?: string;
           target?: string;
+          global?: boolean;
           all?: boolean;
           dryRun?: boolean;
           yes?: boolean;
@@ -59,6 +61,7 @@ export function createProgram(): Command {
         await runInstallCommand(skills ?? [], {
           agent: options.agent as (typeof AGENT_IDS)[number] | undefined,
           target: options.target,
+          global: options.global,
           all: options.all,
           dryRun: options.dryRun,
           yes: options.yes
@@ -73,6 +76,7 @@ export function createProgram(): Command {
     .argument("<skillId>")
     .option("--agent <agent>")
     .option("--target <path>")
+    .option("--global", "Remove from ~/.agents/skills")
     .option("--yes")
     .option("--dry-run")
     .action(async (skillId: string, options) => {
@@ -87,6 +91,7 @@ export function createProgram(): Command {
     .argument("<skillId>")
     .option("--agent <agent>")
     .option("--target <path>")
+    .option("--global", "Update in ~/.agents/skills")
     .option("--dry-run")
     .option("--yes")
     .action(async (skillId: string, options) => {

@@ -1,7 +1,7 @@
 import os from "node:os";
 import path from "node:path";
 import fs from "fs-extra";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { installSkills } from "../src/core/install-skill";
 import { removeInstalledSkill } from "../src/core/remove-installed-skill";
 import { updateInstalledSkill } from "../src/core/update-installed-skill";
@@ -24,6 +24,43 @@ describe("remove/update protections", () => {
     const target = installed.items[0]!.targetPath;
     await removeInstalledSkill({ skillId: "skill-apple-ui", dryRun: true, projectRoot: tempRoot });
     expect(await fs.pathExists(target)).toBe(true);
+  });
+
+  it("update and remove support unified global route", async () => {
+    const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "global-update-remove-"));
+    tempRoots.push(tempHome);
+    const homedirSpy = vi.spyOn(os, "homedir").mockReturnValue(tempHome);
+
+    try {
+      const installed = await installSkills({
+        skillIds: ["skill-apple-ui"],
+        global: true,
+        projectRoot: path.join(tempHome, "project")
+      });
+
+      const target = installed.items[0]!.targetPath;
+      expect(await fs.pathExists(target)).toBe(true);
+
+      await expect(
+        updateInstalledSkill({
+          skillId: "skill-apple-ui",
+          global: true,
+          projectRoot: path.join(tempHome, "project")
+        })
+      ).resolves.toBe(target);
+
+      await expect(
+        removeInstalledSkill({
+          skillId: "skill-apple-ui",
+          global: true,
+          projectRoot: path.join(tempHome, "project")
+        })
+      ).resolves.toBe(target);
+
+      expect(await fs.pathExists(target)).toBe(false);
+    } finally {
+      homedirSpy.mockRestore();
+    }
   });
 
   it("update rejects sourceSkillsDir collision", async () => {

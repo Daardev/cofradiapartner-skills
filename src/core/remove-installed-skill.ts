@@ -9,6 +9,7 @@ export interface RemoveOptions {
   skillId: string;
   agentId?: AgentId;
   target?: string;
+  global?: boolean;
   dryRun?: boolean;
   projectRoot?: string;
 }
@@ -17,7 +18,8 @@ export async function removeInstalledSkill(options: RemoveOptions): Promise<stri
   const targetRoot = resolveTargetPath({
     agentId: options.agentId,
     customTargetPath: options.target,
-    projectRoot: options.projectRoot
+    projectRoot: options.projectRoot,
+    global: options.global
   });
   const targetSkillDir = path.join(targetRoot, options.skillId);
   const sourceSkillsDir = getSourceSkillsDir();
