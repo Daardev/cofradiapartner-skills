@@ -14,23 +14,19 @@ afterEach(async () => {
 });
 
 describe("installSkills", () => {
-  it("installs skill in unified local route for all agents", async () => {
-    const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "install-all-agents-"));
-    const agents = ["claude", "codex", "opencode", "cursor", "windsurf", "generic"] as const;
+  it("installs skill in unified local route", async () => {
+    const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "install-unified-local-"));
+    tempRoots.push(tempRoot);
 
-    for (const agent of agents) {
-      const projectRoot = path.join(tempRoot, agent);
-      tempRoots.push(projectRoot);
-      const result = await installSkills({
-        skillIds: ["skill-apple-ui"],
-        agentId: agent,
-        projectRoot
-      });
-      expect(result.items[0]?.targetPath).toBe(
-        path.resolve(projectRoot, ".agents/skills", "skill-apple-ui")
-      );
-      expect(await fs.pathExists(result.items[0]!.targetPath)).toBe(true);
-    }
+    const result = await installSkills({
+      skillIds: ["skill-apple-ui"],
+      projectRoot: tempRoot
+    });
+
+    expect(result.items[0]?.targetPath).toBe(
+      path.resolve(tempRoot, ".agents/skills", "skill-apple-ui")
+    );
+    expect(await fs.pathExists(result.items[0]!.targetPath)).toBe(true);
   });
 
   it("installs skill in unified global route", async () => {

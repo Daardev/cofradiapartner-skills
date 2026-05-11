@@ -1,6 +1,5 @@
 import path from "node:path";
 import fs from "fs-extra";
-import type { AgentId } from "../types/agent";
 import { createLocalRegistry } from "./registry";
 import { resolveTargetPath } from "./resolve-target-path";
 import { getSourceSkillsDir, isPathInside } from "../utils/paths";
@@ -8,7 +7,6 @@ import { AppError } from "../utils/errors";
 
 export interface UpdateOptions {
   skillId: string;
-  agentId?: AgentId;
   target?: string;
   global?: boolean;
   dryRun?: boolean;
@@ -19,7 +17,6 @@ export async function updateInstalledSkill(options: UpdateOptions): Promise<stri
   const registry = createLocalRegistry();
   const sourceSkill = await registry.getSkill(options.skillId);
   const targetRoot = resolveTargetPath({
-    agentId: options.agentId,
     customTargetPath: options.target,
     projectRoot: options.projectRoot,
     global: options.global

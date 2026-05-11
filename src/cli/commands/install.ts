@@ -1,11 +1,9 @@
 import { select } from "@clack/prompts";
-import type { AgentId } from "../../types/agent";
 import { installSkills, type ConflictStrategy } from "../../core/install-skill";
 import { AppError } from "../../utils/errors";
 import { logger } from "../../utils/logger";
 
 export interface InstallCommandOptions {
-  agent?: AgentId;
   target?: string;
   all?: boolean;
   global?: boolean;
@@ -25,7 +23,6 @@ export async function runInstallCommand(
     const result = await installSkills({
       skillIds,
       all: options.all,
-      agentId: options.agent,
       target: options.target,
       global: options.global,
       dryRun: options.dryRun,

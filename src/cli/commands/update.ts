@@ -1,11 +1,9 @@
 import { confirm } from "@clack/prompts";
-import type { AgentId } from "../../types/agent";
 import { updateInstalledSkill } from "../../core/update-installed-skill";
 import { AppError } from "../../utils/errors";
 import { logger } from "../../utils/logger";
 
 export interface UpdateCommandOptions {
-  agent?: AgentId;
   target?: string;
   global?: boolean;
   dryRun?: boolean;
@@ -36,7 +34,6 @@ export async function runUpdateCommand(
 
   const updatedPath = await updateInstalledSkill({
     skillId,
-    agentId: options.agent,
     target: options.target,
     global: options.global,
     dryRun: options.dryRun

@@ -2,7 +2,7 @@
 
 ![CofradiaPartner](assets/Cofra.png)
 
-CLI para instalar skills reutilizables en proyectos locales y usarlas con agentes como Claude, Codex, OpenCode, Cursor, Windsurf y Generic.
+CLI para instalar skills reutilizables en proyectos locales con una carpeta unificada en `.agents/skills`.
 
 ## Instalacion
 
@@ -24,24 +24,15 @@ create-skill
 ```bash
 create-skill
 create-skill list
-create-skill agents
+create-skill search <query>
 create-skill validate <skillId>
 create-skill validate --all
 create-skill doctor
-create-skill install <skillId...> [--agent <agent>] [--target <path>] [--global] [--dry-run] [--yes] [--all]
+create-skill install <skillId...> [--target <path>] [--global] [--dry-run] [--yes] [--all]
 create-skill create <skillName>
-create-skill remove <skillId> [--agent <agent>] [--target <path>] [--global] [--dry-run] [--yes]
-create-skill update <skillId> [--agent <agent>] [--target <path>] [--global] [--dry-run]
+create-skill remove <skillId> [--target <path>] [--global] [--dry-run] [--yes]
+create-skill update <skillId> [--target <path>] [--global] [--dry-run]
 ```
-
-## Agentes soportados
-
-- `claude` (default)
-- `codex`
-- `opencode`
-- `cursor`
-- `windsurf`
-- `generic`
 
 ## Rutas por defecto
 
@@ -54,7 +45,13 @@ Precedencia de resolucion:
 2. `--global`
 3. `.agents/skills` relativo a `process.cwd()`
 
-`--agent` se mantiene como metadata compatible, pero ya no cambia la carpeta destino.
+## Reglas operativas del CLI
+
+- La instalacion local siempre converge en `.agents/skills` salvo que se use `--target`.
+- `--global` mueve la operacion a `~/.agents/skills`.
+- `--target` tiene prioridad total sobre `--global` y sobre la ruta local por defecto.
+- `remove` y `update` resuelven el mismo destino que `install`, usando exactamente la misma precedencia.
+- `sourceSkillsDir` nunca debe tratarse como carpeta destino editable.
 
 ## sourceSkillsDir vs targetSkillsDir
 
@@ -71,40 +68,52 @@ Las operaciones destructivas (`remove`, `update`) tienen guardas para no tocar `
 npx @cofradiapartner/skills
 ```
 
+El flujo interactivo pregunta si quieres instalar la skill en el entorno global o dentro de la ruta actual donde ejecutas el comando. Si eliges la ruta actual, luego puedes usar la ruta consolidada `.agents/skills` o indicar un destino custom.
+
+El modo interactivo es persistente: al terminar una accion (listar, buscar, validar, instalar, doctor), el CLI vuelve al menu principal para que puedas seguir operando sin relanzar el comando.
+
+La navegacion usa opciones explicitas de `Volver` en cada subflujo. `Esc` no forma parte del contrato oficial de navegacion.
+
+Para salir de forma inmediata en cualquier momento, usa `Ctrl+C`.
+
+En la opcion `Buscar skills`, si hay coincidencias puedes seleccionar una skill encontrada y continuar con el flujo normal de instalacion.
+
+En la seleccion multiple de skills para instalar, usa `[espacio] para seleccionar`.
+
 ### Listar skills
 
 ```bash
 npx @cofradiapartner/skills list
 ```
 
-### Ver agentes
+### Buscar skills
 
 ```bash
-npx @cofradiapartner/skills agents
+npx @cofradiapartner/skills search apple
 ```
 
-### Instalar una skill
+### Instalar una skill en la ruta consolidada local
 
 ```bash
-npx @cofradiapartner/skills install skill-apple-ui --agent claude
+npx @cofradiapartner/skills install skill-apple-ui
 ```
 
 ### Instalar varias skills
 
 ```bash
-npx @cofradiapartner/skills install skill-apple-ui skill-brand-ui --agent codex
+npx @cofradiapartner/skills install skill-apple-ui skill-brand-ui
 ```
 
 ### Instalar todas las skills
 
 ```bash
-npx @cofradiapartner/skills install --all --agent opencode
+npx @cofradiapartner/skills install --all
 ```
 
 ### Usar target custom
 
 ```bash
-npx @cofradiapartner/skills install skill-apple-ui --agent claude --target docs/ai-skills
+npx @cofradiapartner/skills install skill-apple-ui --target docs/ai-skills
 ```
 
 ### Instalar global
@@ -116,7 +125,7 @@ npx @cofradiapartner/skills install skill-apple-ui --global
 ### Dry run
 
 ```bash
-npx @cofradiapartner/skills install skill-apple-ui --agent claude --dry-run
+npx @cofradiapartner/skills install skill-apple-ui --dry-run
 ```
 
 ### Validar una skill
@@ -146,13 +155,13 @@ npx @cofradiapartner/skills create skill-demo
 ### Eliminar skill instalada
 
 ```bash
-npx @cofradiapartner/skills remove skill-apple-ui --agent claude
+npx @cofradiapartner/skills remove skill-apple-ui
 ```
 
 ### Actualizar skill instalada
 
 ```bash
-npx @cofradiapartner/skills update skill-apple-ui --agent claude
+npx @cofradiapartner/skills update skill-apple-ui
 ```
 
 ### Actualizar skill global
@@ -172,7 +181,6 @@ npx @cofradiapartner/skills remove skill-apple-ui --global
 - `install --all` no acepta IDs posicionales.
 - `validate --all` no acepta ID posicional.
 - `install` sin IDs y sin `--all` falla.
-- Agente invalido falla con exit code no cero.
 - `remove` y `update` rechazan targets dentro de `sourceSkillsDir`.
 - `--dry-run` no modifica archivos.
 
@@ -213,9 +221,6 @@ npm publish --access public
 
 - `skill-apple-ui`
 
-## Como agregar nuevos agentes
+## Documentacion interna
 
-1. Agregar el nuevo `AgentId` en `src/types/agent.ts`.
-2. Agregar su definicion en `src/core/agents.ts` para metadata y compatibilidad.
-3. Verificar que la UX asociada al agente siga consistente, aunque la instalacion se resuelve en `.agents/skills`.
-4. Agregar/ajustar tests en `tests/agents.test.ts` y `tests/resolve-target-path.test.ts`.
+- `docs/cli-operating-rules.md`

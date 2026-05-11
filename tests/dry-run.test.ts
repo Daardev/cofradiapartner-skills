@@ -21,7 +21,6 @@ describe("dry-run", () => {
 
     const result = await installSkills({
       skillIds: ["skill-apple-ui"],
-      agentId: "codex",
       dryRun: true,
       projectRoot: tempRoot
     });

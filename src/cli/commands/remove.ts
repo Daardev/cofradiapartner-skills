@@ -1,11 +1,9 @@
 import { confirm } from "@clack/prompts";
-import type { AgentId } from "../../types/agent";
 import { removeInstalledSkill } from "../../core/remove-installed-skill";
 import { AppError } from "../../utils/errors";
 import { logger } from "../../utils/logger";
 
 export interface RemoveCommandOptions {
-  agent?: AgentId;
   target?: string;
   global?: boolean;
   yes?: boolean;
@@ -36,7 +34,6 @@ export async function runRemoveCommand(
 
   const removedPath = await removeInstalledSkill({
     skillId,
-    agentId: options.agent,
     target: options.target,
     global: options.global,
     dryRun: options.dryRun

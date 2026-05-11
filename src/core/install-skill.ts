@@ -2,7 +2,6 @@ import path from "node:path";
 import fs from "fs-extra";
 import { createLocalRegistry } from "./registry";
 import { resolveTargetPath } from "./resolve-target-path";
-import type { AgentId } from "../types/agent";
 import { AppError } from "../utils/errors";
 
 export type ConflictStrategy = "cancel" | "overwrite" | "copy";
@@ -10,7 +9,6 @@ export type ConflictStrategy = "cancel" | "overwrite" | "copy";
 export interface InstallOptions {
   skillIds: string[];
   all?: boolean;
-  agentId?: AgentId;
   target?: string;
   global?: boolean;
   dryRun?: boolean;
@@ -59,7 +57,6 @@ export async function installSkills(options: InstallOptions): Promise<InstallRes
   const skills = options.all ? await registry.listSkills() : await Promise.all(options.skillIds.map((id) => registry.getSkill(id)));
 
   const targetRoot = resolveTargetPath({
-    agentId: options.agentId,
     customTargetPath: options.target,
     projectRoot: options.projectRoot,
     global: options.global

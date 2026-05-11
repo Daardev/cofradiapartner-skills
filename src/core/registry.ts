@@ -14,6 +14,10 @@ export class SkillRegistry {
     return this.source.get(skillId);
   }
 
+  searchSkills(query: string): Promise<Skill[]> {
+    return this.source.search(query);
+  }
+
   async validateSkill(skillId: string): Promise<SkillValidationResult> {
     const skill = await this.getSkill(skillId);
     return validateSkillDirectory(skill.sourcePath);

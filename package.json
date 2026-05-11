@@ -1,6 +1,6 @@
 {
   "name": "@cofradiapartner/skills",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "CLI para instalar skills reutilizables en agentes como Codex, Claude, OpenCode, Cursor y Windsurf.",
   "type": "module",
   "bin": {

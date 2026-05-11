@@ -6,27 +6,6 @@ import { resolveTargetPath } from "../src/core/resolve-target-path";
 describe("resolveTargetPath", () => {
   const projectRoot = path.resolve("virtual-project");
 
-  it("resolves unified local route for each agent from projectRoot", () => {
-    expect(resolveTargetPath({ agentId: "claude", projectRoot })).toBe(
-      path.resolve(projectRoot, ".agents/skills")
-    );
-    expect(resolveTargetPath({ agentId: "codex", projectRoot })).toBe(
-      path.resolve(projectRoot, ".agents/skills")
-    );
-    expect(resolveTargetPath({ agentId: "opencode", projectRoot })).toBe(
-      path.resolve(projectRoot, ".agents/skills")
-    );
-    expect(resolveTargetPath({ agentId: "cursor", projectRoot })).toBe(
-      path.resolve(projectRoot, ".agents/skills")
-    );
-    expect(resolveTargetPath({ agentId: "windsurf", projectRoot })).toBe(
-      path.resolve(projectRoot, ".agents/skills")
-    );
-    expect(resolveTargetPath({ agentId: "generic", projectRoot })).toBe(
-      path.resolve(projectRoot, ".agents/skills")
-    );
-  });
-
   it("uses unified local route by default", () => {
     expect(resolveTargetPath({ projectRoot })).toBe(
       path.resolve(projectRoot, ".agents/skills")
@@ -39,10 +18,9 @@ describe("resolveTargetPath", () => {
     );
   });
 
-  it("prioritizes custom target path over default agent path", () => {
+  it("prioritizes custom target path over the default local route", () => {
     expect(
       resolveTargetPath({
-        agentId: "claude",
         customTargetPath: "docs/ai-skills",
         global: true,
         projectRoot
@@ -51,8 +29,6 @@ describe("resolveTargetPath", () => {
   });
 
   it("resolves against process.cwd when no projectRoot is provided", () => {
-    expect(resolveTargetPath({ agentId: "generic" })).toBe(
-      path.resolve(process.cwd(), ".agents/skills")
-    );
+    expect(resolveTargetPath({})).toBe(path.resolve(process.cwd(), ".agents/skills"));
   });
 });

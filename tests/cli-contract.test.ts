@@ -29,7 +29,7 @@ describe("CLI contract", () => {
     expect(code).toBe(1);
   });
 
-  it("fails invalid agent", async () => {
+  it("fails on unknown option", async () => {
     const code = await runCli([
       "node",
       "create-skill",

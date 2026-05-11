@@ -31,6 +31,26 @@ describe("SkillRegistry", () => {
     expect(skill.sourcePath).toBe(path.resolve(process.cwd(), "skills", "skill-apple-ui"));
   });
 
+  it("searches by id, name, and description", async () => {
+    const registry = createLocalRegistry(path.resolve(process.cwd(), "skills"));
+
+    const byId = await registry.searchSkills("skill-apple-ui");
+    expect(byId.some((skill) => skill.id === "skill-apple-ui")).toBe(true);
+
+    const byName = await registry.searchSkills("apple ui");
+    expect(byName.some((skill) => skill.id === "skill-apple-ui")).toBe(true);
+
+    const byDescription = await registry.searchSkills("minimalistas");
+    expect(byDescription.some((skill) => skill.id === "skill-apple-ui")).toBe(true);
+  });
+
+  it("returns empty search results for unknown query", async () => {
+    const registry = createLocalRegistry(path.resolve(process.cwd(), "skills"));
+    const results = await registry.searchSkills("query-that-does-not-exist");
+
+    expect(results).toEqual([]);
+  });
+
   it("fails when skill does not exist", async () => {
     const registry = createLocalRegistry(path.resolve(process.cwd(), "skills"));
 
@@ -62,5 +82,12 @@ describe("SkillRegistry", () => {
     expect(skills).toHaveLength(1);
     expect(skills[0]?.id).toBe("skill-local");
     expect(skills[0]?.sourcePath).toBe(path.join(sourceSkillsDir, "skill-local"));
+  });
+
+  it("returns empty results for empty search query", async () => {
+    const registry = createLocalRegistry(path.resolve(process.cwd(), "skills"));
+    const results = await registry.searchSkills("   ");
+
+    expect(results).toEqual([]);
   });
 });

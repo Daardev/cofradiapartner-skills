@@ -1,15 +1,14 @@
 import { Command } from "commander";
 import { runInteractiveMode } from "./interactive";
-import { runAgentsCommand } from "./commands/agents";
 import { runCreateCommand } from "./commands/create";
 import { runDoctorCommand } from "./commands/doctor";
 import { runInstallCommand } from "./commands/install";
 import { runListCommand } from "./commands/list";
+import { runSearchCommand } from "./commands/search";
 import { runRemoveCommand } from "./commands/remove";
 import { runUpdateCommand } from "./commands/update";
 import { runValidateCommand } from "./commands/validate";
-import { AGENT_IDS } from "../types/agent";
-import { AppError, toAppError } from "../utils/errors";
+import { toAppError } from "../utils/errors";
 import { logger } from "../utils/logger";
 
 export function createProgram(): Command {
@@ -19,10 +18,11 @@ export function createProgram(): Command {
     .name("create-skill")
     .description("CLI para instalar skills reutilizables")
     .option("--debug", "Show stack traces", false);
+  program.exitOverride();
 
   program.command("list").action(async () => runListCommand());
 
-  program.command("agents").action(() => runAgentsCommand());
+  program.command("search").argument("<query>").action(async (query: string) => runSearchCommand(query));
 
   program
     .command("validate")
@@ -37,7 +37,6 @@ export function createProgram(): Command {
   program
     .command("install")
     .argument("[skills...]")
-    .option("--agent <agent>", "Target agent metadata")
     .option("--target <path>", "Custom target path")
     .option("--global", "Install into ~/.agents/skills")
     .option("--all", "Install all skills")
@@ -47,7 +46,6 @@ export function createProgram(): Command {
       async (
         skills: string[],
         options: {
-          agent?: string;
           target?: string;
           global?: boolean;
           all?: boolean;
@@ -55,11 +53,7 @@ export function createProgram(): Command {
           yes?: boolean;
         }
       ) => {
-        if (options.agent && !AGENT_IDS.includes(options.agent as (typeof AGENT_IDS)[number])) {
-          throw new AppError("INVALID_ARGUMENT", `Invalid agent: ${options.agent}`);
-        }
         await runInstallCommand(skills ?? [], {
-          agent: options.agent as (typeof AGENT_IDS)[number] | undefined,
           target: options.target,
           global: options.global,
           all: options.all,
@@ -74,32 +68,20 @@ export function createProgram(): Command {
   program
     .command("remove")
     .argument("<skillId>")
-    .option("--agent <agent>")
-    .option("--target <path>")
+    .option("--target <path>", "Custom target path")
     .option("--global", "Remove from ~/.agents/skills")
     .option("--yes")
     .option("--dry-run")
-    .action(async (skillId: string, options) => {
-      if (options.agent && !AGENT_IDS.includes(options.agent as (typeof AGENT_IDS)[number])) {
-        throw new AppError("INVALID_ARGUMENT", `Invalid agent: ${options.agent}`);
-      }
-      await runRemoveCommand(skillId, options);
-    });
+    .action(async (skillId: string, options) => runRemoveCommand(skillId, options));
 
   program
     .command("update")
     .argument("<skillId>")
-    .option("--agent <agent>")
-    .option("--target <path>")
+    .option("--target <path>", "Custom target path")
     .option("--global", "Update in ~/.agents/skills")
     .option("--dry-run")
     .option("--yes")
-    .action(async (skillId: string, options) => {
-      if (options.agent && !AGENT_IDS.includes(options.agent as (typeof AGENT_IDS)[number])) {
-        throw new AppError("INVALID_ARGUMENT", `Invalid agent: ${options.agent}`);
-      }
-      await runUpdateCommand(skillId, options);
-    });
+    .action(async (skillId: string, options) => runUpdateCommand(skillId, options));
 
   program.action(async () => {
     await runInteractiveMode();

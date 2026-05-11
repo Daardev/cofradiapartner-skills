@@ -1,5 +1,4 @@
 import process from "node:process";
-import { listAgents } from "./agents";
 import { createLocalRegistry } from "./registry";
 import { ensureWritableDirectory } from "../utils/fs";
 import {
@@ -13,16 +12,14 @@ export interface DoctorResult {
   cwd: string;
   writable: "OK" | "FAIL";
   skillsCount: number;
-  agentsCount: number;
   skillsValidation: "OK" | "FAIL";
-  suggestedRoutes: Record<string, string>;
+  localSkillsPath: string;
   globalSkillsPath: string;
 }
 
 export async function runDoctor(): Promise<DoctorResult> {
   const cwd = process.cwd();
   const registry = createLocalRegistry();
-  const agents = listAgents();
 
   let writable: "OK" | "FAIL" = "OK";
   try {
@@ -47,11 +44,8 @@ export async function runDoctor(): Promise<DoctorResult> {
     cwd: normalizePathForOutput(cwd),
     writable,
     skillsCount: skills.length,
-    agentsCount: agents.length,
     skillsValidation,
-    globalSkillsPath: normalizePathForOutput(getGlobalSkillsDir()),
-    suggestedRoutes: Object.fromEntries(
-      agents.map((agent) => [agent.id, normalizePathForOutput(DEFAULT_LOCAL_SKILLS_DIR)])
-    )
+    localSkillsPath: normalizePathForOutput(DEFAULT_LOCAL_SKILLS_DIR),
+    globalSkillsPath: normalizePathForOutput(getGlobalSkillsDir())
   };
 }

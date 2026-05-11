@@ -5,10 +5,9 @@ export async function runDoctorCommand(): Promise<void> {
   console.log("Doctor result:\n");
   console.log(`Node: ${result.node}`);
   console.log(`Directorio actual: OK (${result.cwd})`);
-  console.log(`Ruta local por defecto: .agents/skills`);
+  console.log(`Ruta local por defecto: ${result.localSkillsPath}`);
   console.log(`Ruta global por defecto: ${result.globalSkillsPath}`);
   console.log(`Permisos de escritura: ${result.writable}`);
   console.log(`Skills disponibles: ${result.skillsCount}`);
-  console.log(`Agentes soportados: ${result.agentsCount}`);
   console.log(`Validacion de skills: ${result.skillsValidation}`);
 }

@@ -6,9 +6,8 @@ describe("doctor", () => {
     const result = await runDoctor();
     expect(result.node).toBe("OK");
     expect(result.cwd.length).toBeGreaterThan(0);
-    expect(result.agentsCount).toBe(6);
     expect(result.skillsCount).toBeGreaterThanOrEqual(1);
-    expect(result.suggestedRoutes.claude).toBe(".agents/skills");
+    expect(result.localSkillsPath).toBe(".agents/skills");
     expect(result.globalSkillsPath.length).toBeGreaterThan(0);
   });
 });
