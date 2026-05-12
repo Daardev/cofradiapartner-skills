@@ -23,10 +23,6 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run typecheck && npm run lint && npm run test && npm run build",
-    "changeset": "changeset",
-    "version-packages": "changeset version",
-    "release": "changeset publish",
     "pnpm:check": "pnpm install --frozen-lockfile && pnpm run typecheck && pnpm run test"
   },
   "keywords": [
@@ -42,10 +38,6 @@
     "cofradiapartner"
   ],
   "license": "MIT",
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
   "dependencies": {
     "@clack/prompts": "^1.3.0",
     "commander": "^12.1.0",

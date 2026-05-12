@@ -127,17 +127,6 @@ npm run test:coverage
 npm run build
 ```
 
-## Publicacion En npm
-
-Flujo manual de publicacion del paquete:
-
-```bash
-pnpm run changeset
-pnpm run version-packages
-pnpm run build
-npm publish --access public
-```
-
 ## Skills Incluidas
 
 - `skill-apple-ui`
