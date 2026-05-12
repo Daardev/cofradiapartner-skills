@@ -5,20 +5,20 @@
 </p>
 
 <p align="center">
-  CLI para instalar skills reutilizables en proyectos locales con una carpeta unificada en <code>.agents/skills</code>.
+  CLI para instalar skills reutilizables con un destino local unificado en <code>.agents/skills</code>.
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/CLI-create--skill-0b1220?style=for-the-badge" alt="CLI" />
   <img src="https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/pnpm-recommended-F69220?style=for-the-badge&logo=pnpm&logoColor=white" alt="pnpm recommended" />
-  <img src="https://img.shields.io/badge/npm-supported-CB3837?style=for-the-badge&logo=npm&logoColor=white" alt="npm supported" />
+  <img src="https://img.shields.io/badge/pnpm-F69220?style=for-the-badge&logo=pnpm&logoColor=white" alt="pnpm" />
+  <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white" alt="npm" />
   <img src="https://img.shields.io/badge/license-MIT-16A34A?style=for-the-badge" alt="MIT" />
 </p>
 
 ## Instalacion
 
-| Recomendado con pnpm | Alternativa con npm |
+| Uso con pnpm | Uso con npm |
 | --- | --- |
 | `pnpm dlx @cofradiapartner/skills` | `npx @cofradiapartner/skills` |
 | `pnpm add -g @cofradiapartner/skills` | `npm install -g @cofradiapartner/skills` |
@@ -129,7 +129,7 @@ npm run build
 
 ## Publicacion En npm
 
-Este paquete esta preparado para publicarse como `@cofradiapartner/skills`.
+Flujo manual de publicacion del paquete:
 
 ```bash
 pnpm run changeset
@@ -137,13 +137,6 @@ pnpm run version-packages
 pnpm run build
 npm publish --access public
 ```
-
-## Como Agregar Nuevas Skills Al Repo
-
-1. Crear una carpeta dentro de `skills/` con un ID unico.
-2. Agregar `skill.md` con frontmatter obligatorio: `name` y `description`.
-3. Agregar `examples.md` y `README.md`.
-4. Ejecutar `pnpm run test` y `pnpm dlx @cofradiapartner/skills validate --all`.
 
 ## Skills Incluidas
 
