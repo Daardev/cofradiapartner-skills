@@ -6,13 +6,32 @@ CLI para instalar skills reutilizables en proyectos locales con una carpeta unif
 
 ## Instalacion
 
-### Uso con npx
+Recomendamos `pnpm` como primera opcion para instalar o ejecutar el CLI.
+
+### Uso recomendado con pnpm
+
+#### Ejecutar sin instalacion global
+
+```bash
+pnpm dlx @cofradiapartner/skills
+```
+
+#### Instalacion global
+
+```bash
+pnpm add -g @cofradiapartner/skills
+create-skill
+```
+
+### Alternativa con npm
+
+#### Ejecutar sin instalacion global
 
 ```bash
 npx @cofradiapartner/skills
 ```
 
-### Instalacion global
+#### Instalacion global
 
 ```bash
 npm install -g @cofradiapartner/skills
@@ -65,7 +84,7 @@ Las operaciones destructivas (`remove`, `update`) tienen guardas para no tocar `
 ### Modo interactivo
 
 ```bash
-npx @cofradiapartner/skills
+pnpm dlx @cofradiapartner/skills
 ```
 
 El flujo interactivo pregunta si quieres instalar la skill en el entorno global o dentro de la ruta actual donde ejecutas el comando. Si eliges la ruta actual, luego puedes usar la ruta consolidada `.agents/skills` o indicar un destino custom.
@@ -83,97 +102,97 @@ En la seleccion multiple de skills para instalar, usa `[espacio] para selecciona
 ### Listar skills
 
 ```bash
-npx @cofradiapartner/skills list
+pnpm dlx @cofradiapartner/skills list
 ```
 
 ### Buscar skills
 
 ```bash
-npx @cofradiapartner/skills search apple
+pnpm dlx @cofradiapartner/skills search apple
 ```
 
 ### Instalar una skill en la ruta consolidada local
 
 ```bash
-npx @cofradiapartner/skills install skill-apple-ui
+pnpm dlx @cofradiapartner/skills install skill-apple-ui
 ```
 
 ### Instalar varias skills
 
 ```bash
-npx @cofradiapartner/skills install skill-apple-ui skill-brand-ui
+pnpm dlx @cofradiapartner/skills install skill-apple-ui skill-brand-ui
 ```
 
 ### Instalar todas las skills
 
 ```bash
-npx @cofradiapartner/skills install --all
+pnpm dlx @cofradiapartner/skills install --all
 ```
 
 ### Usar target custom
 
 ```bash
-npx @cofradiapartner/skills install skill-apple-ui --target docs/ai-skills
+pnpm dlx @cofradiapartner/skills install skill-apple-ui --target docs/ai-skills
 ```
 
 ### Instalar global
 
 ```bash
-npx @cofradiapartner/skills install skill-apple-ui --global
+pnpm dlx @cofradiapartner/skills install skill-apple-ui --global
 ```
 
 ### Dry run
 
 ```bash
-npx @cofradiapartner/skills install skill-apple-ui --dry-run
+pnpm dlx @cofradiapartner/skills install skill-apple-ui --dry-run
 ```
 
 ### Validar una skill
 
 ```bash
-npx @cofradiapartner/skills validate skill-apple-ui
+pnpm dlx @cofradiapartner/skills validate skill-apple-ui
 ```
 
 ### Validar todas las skills
 
 ```bash
-npx @cofradiapartner/skills validate --all
+pnpm dlx @cofradiapartner/skills validate --all
 ```
 
 ### Ejecutar doctor
 
 ```bash
-npx @cofradiapartner/skills doctor
+pnpm dlx @cofradiapartner/skills doctor
 ```
 
 ### Crear scaffold local de skill
 
 ```bash
-npx @cofradiapartner/skills create skill-demo
+pnpm dlx @cofradiapartner/skills create skill-demo
 ```
 
 ### Eliminar skill instalada
 
 ```bash
-npx @cofradiapartner/skills remove skill-apple-ui
+pnpm dlx @cofradiapartner/skills remove skill-apple-ui
 ```
 
 ### Actualizar skill instalada
 
 ```bash
-npx @cofradiapartner/skills update skill-apple-ui
+pnpm dlx @cofradiapartner/skills update skill-apple-ui
 ```
 
 ### Actualizar skill global
 
 ```bash
-npx @cofradiapartner/skills update skill-apple-ui --global
+pnpm dlx @cofradiapartner/skills update skill-apple-ui --global
 ```
 
 ### Eliminar skill global
 
 ```bash
-npx @cofradiapartner/skills remove skill-apple-ui --global
+pnpm dlx @cofradiapartner/skills remove skill-apple-ui --global
 ```
 
 ## Protecciones importantes
@@ -185,6 +204,17 @@ npx @cofradiapartner/skills remove skill-apple-ui --global
 - `--dry-run` no modifica archivos.
 
 ## Desarrollo local
+
+```bash
+pnpm install
+pnpm run typecheck
+pnpm run lint
+pnpm run test
+pnpm run test:coverage
+pnpm run build
+```
+
+Alternativa equivalente con npm:
 
 ```bash
 npm install
@@ -202,9 +232,9 @@ Este paquete esta preparado para publicarse como `@cofradiapartner/skills`.
 Pasos tipicos:
 
 ```bash
-npm run changeset
-npm run version-packages
-npm run build
+pnpm run changeset
+pnpm run version-packages
+pnpm run build
 npm publish --access public
 ```
 
@@ -215,7 +245,7 @@ npm publish --access public
    - `name`
    - `description`
 3. Agregar `examples.md` y `README.md`.
-4. Ejecutar `npm run test` y `create-skill validate --all`.
+4. Ejecutar `pnpm run test` y `pnpm dlx @cofradiapartner/skills validate --all`.
 
 ## Skills incluidas
 
