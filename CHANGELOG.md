@@ -2,6 +2,10 @@
 
 ## 1.0.7 - 2026-05-27
 
+### Changed
+- Actualiza `skill-apple-ui` a v2: detecta automáticamente el stack del proyecto (React, Vue, Astro, Next.js, vanilla) y genera componentes en el formato correcto del framework.
+- Incorpora principios de código limpio (SRP, DRY, KISS, props tipadas, componentes pequeños, side effects separados).
+
 ### Added
 - Agrega `gh-release` skill: prepara y publica proyectos en GitHub con version, tag annotated y changelog.
 - Agrega `examples.md` y `README.md` a `astro-ts-tw-base` y `auto-testing` para cumplir con la validacion de skills.
