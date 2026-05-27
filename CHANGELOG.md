@@ -1,5 +1,11 @@
 # @cofradiapartner/skills
 
+## 1.0.8 - 2026-05-27
+
+### Changed
+- Actualiza `skill-apple-ui` a v2: detecta automáticamente el stack del proyecto (React, Vue, Astro, Next.js, vanilla) y genera componentes en el formato correcto del framework.
+- Incorpora principios de código limpio (SRP, DRY, KISS, props tipadas, componentes pequeños, side effects separados).
+
 ## 1.0.7 - 2026-05-27
 
 ### Changed
