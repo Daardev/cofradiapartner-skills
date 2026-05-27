@@ -1,102 +1,132 @@
 # Design Tokens
 
-Referencia rapida de tokens de diseno para crear interfaces premium limpias y neutrales.
+Todos los tokens de diseño están definidos en `assets/css/global-theme.css`. Copia ese archivo en tu proyecto e importa las variables con `var(...)`.
+
+> Para ver los valores reales abre `assets/css/global-theme.css`.
 
 ## Colores
 
-### Primarios
-| Token | Valor | Uso |
-|-------|-------|-----|
-| `--color-primary` | #0071e3 | Botones primarios, links, acentos |
-| `--color-secondary` | #5856d6 | Secondary actions |
-| `--color-success` | #34c759 | Estados exitosos |
-| `--color-warning` | #ff9500 | Warnings |
-| `--color-error` | #ff3b30 | Errores |
+### Backgrounds
+| Token | Uso |
+|---|---|
+| `--color-bg-page` | Fondo principal de página |
+| `--color-bg-elevated` | Fondo de cards y contenedores elevados |
+| `--color-bg-muted` | Fondo neutro para secciones secundarias |
+| `--color-bg-overlay` | Superficies translúcidas (menús, modales) |
+| `--color-bg-inverse` | Fondo oscuro para secciones destacadas |
 
-### Neutros
-| Token | Valor | Uso |
-|-------|-------|-----|
-| `--color-bg-primary` | #ffffff | Fondo principal |
-| `--color-bg-secondary` | #fbfbfd | Fondo elevado |
-| `--color-bg-tertiary` | #f5f5f7 | Fondo neutro |
-| `--color-bg-overlay` | rgba(245, 245, 247, 0.94) | Superficies translucidas |
-| `--color-text-primary` | #1d1d1f | Texto principal |
-| `--color-text-secondary` | #424245 | Texto secundario |
-| `--color-text-tertiary` | #6e6e73 | Texto terciario |
-| `--color-border-soft` | rgba(0, 0, 0, 0.08) | Bordes suaves |
+### Texto
+| Token | Uso |
+|---|---|
+| `--color-text-primary` | Títulos, texto principal |
+| `--color-text-secondary` | Subtítulos, descripciones |
+| `--color-text-tertiary` | Texto de baja jerarquía (metadatos) |
+| `--color-text-inverse` | Texto sobre fondo oscuro |
+| `--color-text-link` | Links |
+
+### Acento y estados
+| Token | Uso |
+|---|---|
+| `--color-accent` | Botones primarios, links, acentos |
+| `--color-accent-hover` | Hover de botón primario |
+| `--color-accent-active` | Active/pressed de botón primario |
+| `--color-success` | Estados exitosos |
+| `--color-warning` | Advertencias |
+| `--color-error` | Errores |
+
+### Bordes
+| Token | Uso |
+|---|---|
+| `--color-border-soft` | Bordes sutiles |
+| `--color-border-medium` | Bordes visibles |
+| `--color-border-strong` | Bordes destacados (separadores) |
 
 ## Espaciado
 
-| Token | Valor |
-|-------|-------|
-| `--space-xs` | 4px |
-| `--space-sm` | 8px |
-| `--space-md` | 16px |
-| `--space-lg` | 24px |
-| `--space-xl` | 32px |
-| `--space-2xl` | 48px |
-| `--space-3xl` | 64px |
+| Token | Uso |
+|---|---|
+| `--space-xs` | Espaciado mínimo (4px) |
+| `--space-sm` | Espaciado pequeño (8px) |
+| `--space-md` | Espaciado base (16px) |
+| `--space-lg` | Espaciado amplio (24px) |
+| `--space-xl` | Espaciado grande (32px) |
+| `--space-2xl` | Espaciado muy grande (48px) |
+| `--space-3xl` | Espaciado extra grande (64px) |
+| `--space-4xl` | Espaciado máximo (80px) |
 
 ## Border Radius
 
-| Token | Valor | Uso |
-|-------|-------|-----|
-| `--radius-sm` | 6px | Inputs, badges |
-| `--radius-md` | 10px | Botones |
-| `--radius-lg` | 14px | Cards |
-| `--radius-xl` | 20px | Modals, dialogs |
-| `--radius-full` | 9999px | Pills, avatares |
+| Token | Uso |
+|---|---|
+| `--radius-sm` | Inputs, badges |
+| `--radius-md` | Botones |
+| `--radius-lg` | Cards |
+| `--radius-xl` | Modals, dialogs |
+| `--radius-full` | Pills, avatares circulares |
 
 ## Sombras
 
-```css
-/* Suave */
---shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-
-/* Medium */
---shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-
-/* Elevado */
---shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-```
+| Token | Uso |
+|---|---|
+| `--shadow-sm` | Sombra sutil (cards, botones) |
+| `--shadow-md` | Sombra media (modales, dropdowns) |
+| `--shadow-lg` | Sombra elevada (notificaciones, overlays) |
 
 ## Tipografía
 
 ### Font Family
-```css
---font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-```
+| Token | Uso |
+|---|---|
+| `--font-family-sans` | Texto general, títulos |
+| `--font-family-mono` | Código, datos técnicos |
 
-### Escala
-| Token | Tamaño | Line Height |
-|-------|--------|-------------|
-| `--text-xs` | 12px | 1.33337 |
-| `--text-sm` | 14px | 1.28577 |
-| `--text-base` | 17px | 1.47059 |
-| `--text-lg` | 21px | 1.381 |
-| `--text-xl` | 28px | 1.14286 |
-| `--text-2xl` | 40px | 1.1 |
-| `--text-3xl` | 56px | 1.07143 |
+### Font Size
+| Token | Uso |
+|---|---|
+| `--font-size-xs` | Metadatos, badges |
+| `--font-size-sm` | Texto secundario |
+| `--font-size-base` | Texto base (body) |
+| `--font-size-lg` | Subtítulos |
+| `--font-size-xl` | Títulos pequeños |
+| `--font-size-2xl` | Títulos grandes (h1) |
+| `--font-size-3xl` | Display / hero |
 
-### Pesos
-- Regular: 400
-- Medium: 500
-- Semibold: 600
-- Bold: 700
+### Line Height
+| Token | Uso |
+|---|---|
+| `--line-height-tight` | Títulos, headings |
+| `--line-height-base` | Botones, inputs |
+| `--line-height-copy` | Párrafos, body |
+
+### Letter Spacing
+| Token | Uso |
+|---|---|
+| `--letter-spacing-tight` | Títulos grandes, display |
+| `--letter-spacing-normal` | Texto general |
+| `--letter-spacing-wide` | Texto en mayúsculas (labels) |
+
+### Font Weight
+| Token | Uso |
+|---|---|
+| `--font-weight-regular` | Texto base |
+| `--font-weight-medium` | Botones, links |
+| `--font-weight-semibold` | Subtítulos |
+| `--font-weight-bold` | Títulos |
 
 ## Transiciones
 
-```css
---transition-fast: 150ms ease-out;
---transition-base: 200ms ease-out;
---transition-slow: 300ms ease-out;
-```
+| Token | Uso |
+|---|---|
+| `--transition-fast` | Hover states, microinteracciones rápidas |
+| `--transition-base` | Transiciones estándar |
+| `--transition-slow` | Animaciones de entrada, modales |
 
 ## Breakpoints
 
-| Breakpoint | Ancho |
-|------------|-------|
-| Mobile | <= 734px |
-| Tablet | 735px - 1068px |
-| Desktop | >= 1069px |
-| Desktop Wide | >= 1440px |
+| Token | Uso |
+|---|---|
+| `--bp-desktop-wide` | Pantallas ultra anchas (>= 1440px) |
+| `--bp-desktop-compact` | Desktop compacto (>= 1068px) |
+| `--bp-nav-mobile` | Punto de quiebre del menú (834px) |
+| `--bp-mobile` | Mobile (<= 734px) |
+| `--bp-mobile-small` | Mobile pequeño (<= 480px) |

@@ -33,6 +33,9 @@ Siempre aplica estos principios al generar cualquier componente:
 - **Props explícitas**: tipa todas las props; evita `any`
 - **Side effects separados**: lógica de negocio fuera del render
 - **Sin comentarios redundantes**: el código debe ser autodocumentado; usa comentarios solo para explicar el "por qué"
+- **Separación de lenguajes**: no mezcles HTML, CSS y JS en un mismo archivo. Cada lenguaje en su propio archivo, a menos que el framework lo requiera explícitamente (Vue SFC, Svelte, Astro).
+- **Sin sobrescritura**: antes de crear cualquier archivo, verifica que no exista. Si existe, saltéalo.
+- **Estructura contextual**: usa las carpetas que ya tiene el proyecto. Si existe `assets/css/`, pon los estilos ahí.
 
 ## Reglas de Contenido
 
@@ -42,6 +45,17 @@ Siempre aplica estos principios al generar cualquier componente:
 - Sigue la arquitectura del proyecto detectado (componentes, pages, layouts, etc.).
 
 ## Paso a Paso
+
+### 0. Consultar referencia visual del diseño
+
+Antes de escribir código, revisa `assets/index.pdf` — contiene el diseño visual de referencia de apple.com/cl.
+
+**Instrucciones:**
+1. Lee `assets/index.pdf` al inicio de cada tarea
+2. Extrae: estructura de layout, spacing entre bloques, comportamiento responsivo, tamaños de tipografía, colores, imagenes, hover states y microinteracciones
+3. Toma el diseño como especificación y tradúcelo a HTML/CSS/JS o el stack detectado
+4. No adivines ni improvises — el PDF es la fuente de verdad visual
+5. Si el PDF muestra un componente que no está contemplado en los CSS de la skill, agrega los estilos necesarios siguiendo el sistema de tokens (`var(--token)`)
 
 ### 1. Detectar tecnología del proyecto
 
@@ -79,44 +93,72 @@ Inspecciona el proyecto para determinar el stack y adaptar la generación:
 - Pregunta al usuario: "¿En qué tecnología necesitas los componentes? (React, Vue, Astro, HTML vanilla, etc.)"
 - Por defecto, genera HTML + CSS vanilla con diseño responsivo
 
-### 2. Definir estructura base
+### 2. Inspeccionar estructura de archivos existente
+
+Antes de crear cualquier archivo, revisa qué carpetas ya existen en el proyecto:
+
+**Qué revisar:**
+1. Si existe `components/` o `src/components/` — úsalos para componentes
+2. Si existe `assets/css/` o `src/styles/` — coloca los CSS ahí
+3. Si existe `assets/js/` o `src/scripts/` — coloca los JS ahí
+4. Si existe `assets/` pero no `assets/css/` ni `assets/js/` — crea `assets/css/` y `assets/js/` dentro
+5. Si no existe ninguna estructura — crea la convencional según el stack
+
+**Estructura recomendada por stack (solo si no existe):**
+
+| Stack | Estructura |
+|---|---|
+| React / Next.js | `components/Componente.tsx` + `components/Componente.module.css` |
+| Vue 3 | `components/Componente.vue` |
+| Astro | `src/components/Componente.astro` |
+| Vanilla | `assets/css/style.css`, `assets/js/main.js`, raíz `index.html` |
+| Svelte | `src/lib/Componente.svelte` |
+
+**Reglas obligatorias:**
+- **Nunca sobrescribas** un archivo existente. Si el archivo ya existe, saltéalo.
+- **Respeta la estructura actual**. Si el proyecto ya tiene `assets/css/`, úsala en lugar de crear una nueva.
+- **Un archivo por preocupación**: HTML, CSS y JS siempre separados en archivos distintos, salvo que el framework tenga SFC como convención (Vue, Svelte, Astro).
+
+### 3. Definir estructura base
 
 - Establecer contenedor principal con max-width apropiado
 - Usar grilla responsive con enfoque mobile-first
 - Definir espaciado base (8px, 16px, 24px, 32px, 48px)
 - Crear archivo de tema/constantes compartidas si hay más de 3 componentes
 
-### 3. Aplicar principios de tipografía
+### 4. Aplicar principios de tipografía
 
 - Seleccionar fuente limpia (San Francisco, -apple-system, Inter, system-ui)
 - Establecer escala tipográfica: 12px, 14px, 16px, 20px, 24px, 32px, 48px
 - Priorizar legibilidad con line-height 1.5 para body, 1.2 para headings
 - Definir tipografia global y colores base en un archivo central de tema
 
-### 4. Componer componentes visuales
+### 5. Componer componentes visuales
 
-- **Cards**: border-radius 12px-20px, sombra sutil (box-shadow: 0 2px 8px rgba(0,0,0,0.08))
-- **Botones**: border-radius 8px-12px, padding 12px 20px, transiciones suaves
-- **Inputs**: border-radius 8px, borde sutil, focus con ring suave
+Todos los valores visuales deben usar las variables CSS de `assets/css/global-theme.css`.
+
+- **Cards**: `border-radius: var(--radius-lg)`, `box-shadow: var(--shadow-sm)`
+- **Botones**: `border-radius: var(--radius-md)`, `padding: var(--space-sm) var(--space-lg)`, `transition: var(--transition-base)`
+- **Inputs**: `border-radius: var(--radius-sm)`, borde sutil con `var(--color-border-soft)`, focus con `var(--color-accent)`
 - **Menu topbar**: layout centrado en desktop y compacto en mobile
 - **Hero**: bloque de texto centrado, CTAs en fila y media principal debajo
 
 Para cada componente, usa el formato y sintaxis del stack detectado en el paso 1.
 
-### 5. Añadir microinteracciones
+### 6. Añadir microinteracciones
 
 - Transiciones de 200ms-300ms con ease-out
 - Hover states con cambios sutiles de opacidad o escala
 - Feedback visual inmediato en acciones del usuario
 
-### 6. Verificar accesibilidad
+### 7. Verificar accesibilidad
 
 - Contraste mínimo 4.5:1 para texto
 - Espaciado suficiente para touch targets (min 44px)
 - Estados focus visibles para navegación por teclado
 - Atributos ARIA cuando el HTML semántico no sea suficiente
 
-### 7. Aplicar medidas responsivas
+### 8. Aplicar medidas responsivas
 
 - Usa sistema de breakpoints: 1068px, 834px, 734px, 480px
 - Cambia el menu a mobile exactamente desde 834px
@@ -179,19 +221,19 @@ withDefaults(defineProps<Props>(), {
 
 <style scoped>
 .btn-primary {
-  background: #007aff;
-  color: white;
-  border-radius: 10px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: 500;
+  background: var(--color-accent);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
   border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition-base);
 }
 
 .btn-primary:hover {
-  background: #0062cc;
+  background: var(--color-accent-hover);
   transform: scale(1.02);
 }
 </style>
@@ -217,23 +259,25 @@ withDefaults(defineProps<Props>(), {
 ```
 ```css
 /* hero.css */
+@import url("assets/css/global-theme.css");
+
 .hero {
-  max-width: 1068px;
+  max-width: var(--bp-desktop-compact);
   margin: 0 auto;
-  padding: 64px 24px;
+  padding: var(--space-3xl) var(--space-lg);
   text-align: center;
 }
 .hero-title {
-  font-size: 48px;
-  line-height: 1.1;
-  letter-spacing: -0.022em;
-  margin-bottom: 16px;
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  margin-bottom: var(--space-md);
 }
 .hero-subtitle {
-  font-size: 21px;
-  color: #424245;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
   max-width: 600px;
-  margin: 0 auto 32px;
+  margin: 0 auto var(--space-xl);
 }
 ```
 
@@ -251,7 +295,13 @@ withDefaults(defineProps<Props>(), {
 
 ❌ CSS global sin estructura → ✅ Usa CSS Modules, scoped styles o Tailwind según la convención del proyecto
 
+❌ Mezclar HTML, CSS y JS inline en un mismo archivo → ✅ Separa cada lenguaje en su propio archivo (`.tsx` + `.module.css` o `.html` + `.css` + `.js`)
+
 ❌ Ignorar el sistema de archivos del proyecto → ✅ Genera los archivos en las carpetas que ya existen (`components/`, `pages/`, etc.)
+
+❌ Crear carpetas nuevas ignorando las que ya existen → ✅ Inspecciona el proyecto primero y reutiliza `components/`, `assets/`, `src/` si ya están presentes
+
+❌ Sobrescribir archivos del usuario → ✅ Siempre verifica si el archivo existe antes de crearlo; si existe, saltéalo
 
 ## Mejores Prácticas
 
@@ -266,9 +316,8 @@ withDefaults(defineProps<Props>(), {
 
 ## Assets Incluidos
 
-- CSS de tema global (fondos, textos, tipografia): `assets/css/global-theme.css`
-- CSS reutilizable: `assets/css/apple-menu.css`
-- CSS reutilizable: `assets/css/hero-layout.css`
+- CSS unificado global (tokens + componentes + base): `assets/css/global-theme.css`
+- Referencia visual de apple.com/cl: `assets/index.pdf`
 - Template base agnóstico al stack: `assets/templates/menu-template.html`
 - Template base agnóstico al stack: `assets/templates/hero-template.html`
 - Referencia de patrones: `references/menu-patterns.md`
@@ -278,11 +327,14 @@ withDefaults(defineProps<Props>(), {
 
 ## Uso de Assets
 
-1. Copia primero `assets/css/global-theme.css` para inicializar colores y tipografia.
-2. Usa los tokens de `references/design-tokens.md` para mantener consistencia visual.
-3. Adapta los templates HTML al stack detectado (convierte a JSX, Vue SFC, etc.).
-4. Reemplaza placeholders con el contenido entregado por el usuario.
-5. Respeta el breakpoint del menu en `834px` para coincidir con la referencia.
+1. Revisa `assets/index.pdf` — es la referencia visual obligatoria antes de escribir cualquier componente.
+2. Copia primero `assets/css/global-theme.css` — es la única fuente de verdad para colores, espaciado, radios, sombras, tipografía y breakpoints.
+3. Usa los tokens con `var(--token)` en todos los componentes. Revisa `references/design-tokens.md` para saber qué token usar en cada contexto.
+4. No hardcodees valores CSS en los componentes; siempre referencia las variables del tema.
+5. Si el PDF muestra estilos o componentes que no están cubiertos por `global-theme.css`, agrega las variables o clases necesarias respetando el sistema de tokens existente.
+6. Adapta los templates HTML al stack detectado (convierte a JSX, Vue SFC, etc.).
+7. Reemplaza placeholders con el contenido entregado por el usuario.
+8. Respeta el breakpoint del menú en `--bp-nav-mobile` (834px) para coincidir con la referencia.
 
 ## Recursos
 

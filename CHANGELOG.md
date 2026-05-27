@@ -1,5 +1,15 @@
 # @cofradiapartner/skills
 
+## 1.0.9 - 2026-05-27
+
+### Changed
+- Unifica `apple-menu.css` y `hero-layout.css` en un solo archivo `global-theme.css` (única fuente de verdad).
+- Elimina archivos CSS duplicados y migra a tokens unificados (`--font-size-xs`, `--font-size-base`, `--radius-full`, etc.).
+- Documenta en SKILL.md la referencia visual obligatoria `assets/index.pdf` (diseño de apple.com/cl) como paso 0.
+
+### Fixed
+- Corrige referencias rotas a `apple-menu.css` y `hero-layout.css` en `references/hero-patterns.md` y `references/menu-patterns.md`.
+
 ## 1.0.8 - 2026-05-27
 
 ### Changed

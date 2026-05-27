@@ -28,6 +28,6 @@ Guia de composicion para hero basada en referencia visual, centrada en layout y 
 
 ## Implementacion agnostica al stack
 
-1. Copia `assets/css/hero-layout.css`.
+1. Copia `assets/css/global-theme.css` (contiene los estilos de hero unificados).
 2. Copia `assets/templates/hero-template.html` y reemplaza placeholders.
 3. Adapta el marcado a React/Vue/Svelte/HTML sin renombrar clases.

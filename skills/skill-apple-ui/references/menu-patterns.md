@@ -24,7 +24,7 @@ Guia de menu topbar estilo Apple basada en referencias visuales del proyecto.
 
 ## Implementacion agnostica al stack
 
-1. Copia `assets/css/apple-menu.css` en tu proyecto.
+1. Copia `assets/css/global-theme.css` en tu proyecto (contiene los estilos de navegación unificados).
 2. Copia `assets/templates/menu-template.html` y adapta el marcado a tu framework.
 3. Mantiene clases BEM para evitar romper estilos.
 4. Si usas React/Vue/Svelte, conserva la estructura de clases y reemplaza solo handlers/eventos.
