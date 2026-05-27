@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Release"
+  short_description: "Publicar con version, tag y changelog."
+  default_prompt: "Use $gh-release to choose the next version, update the changelog, create the matching tag, and push this project to GitHub."
