@@ -1,0 +1,106 @@
+:root {
+  /* Content width */
+  --content-max-width-desktop: 1440px;
+
+  /* Breakpoints */
+  --bp-desktop-compact: 1068px;
+  --bp-nav-mobile: 834px;
+  --bp-mobile: 734px;
+  --bp-mobile-small: 480px;
+
+  /* Layout spacing */
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --container-padding-desktop: 20px;
+  --container-padding-mobile: 16px;
+  --container-padding-mobile-small: 14px;
+
+  /* Shared sizes */
+  --radius-pill: 999px;
+  --size-nav-height-desktop: 44px;
+  --size-nav-height-mobile: 48px;
+  --size-cta-height-desktop: 44px;
+  --size-cta-height-mobile: 36px;
+  --size-cta-height-mobile-small: 34px;
+  --size-cta-height-mobile-xs: 32px;
+
+  /* Global backgrounds */
+  --color-bg-page: #ffffff;
+  --color-bg-elevated: #fbfbfd;
+  --color-bg-muted: #f5f5f7;
+  --color-bg-overlay: rgba(245, 245, 247, 0.94);
+
+  /* Global text */
+  --color-text-primary: #1d1d1f;
+  --color-text-secondary: #424245;
+  --color-text-tertiary: #6e6e73;
+  --color-text-inverse: #ffffff;
+
+  /* Accent and states */
+  --color-accent: #0071e3;
+  --color-accent-hover: #0077ed;
+  --color-border-soft: rgba(0, 0, 0, 0.08);
+
+  /* Typography */
+  --font-family-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-size-12: 12px;
+  --font-size-14: 14px;
+  --font-size-17: 17px;
+  --font-size-21: 21px;
+  --font-size-28: 28px;
+  --font-size-40: 40px;
+  --font-size-56: 56px;
+  --line-height-tight: 1.1;
+  --line-height-base: 1.23536;
+  --line-height-copy: 1.47059;
+  --letter-spacing-tight: -0.022em;
+  --letter-spacing-normal: -0.016em;
+
+  /* Motion */
+  --transition-base: 220ms ease-out;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-17);
+  line-height: var(--line-height-copy);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-text-primary);
+  margin: 0;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+p {
+  color: var(--color-text-secondary);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+a {
+  color: var(--color-accent);
+}
+
+@media (max-width: 734px) {
+  body {
+    font-size: var(--font-size-17);
+  }
+}

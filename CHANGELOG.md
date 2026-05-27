@@ -1,5 +1,17 @@
 # @cofradiapartner/skills
 
+## 1.0.6 - 2026-05-27
+
+### Added
+- Agrega `astro-ts-tw-base` skill: inicializa proyecto Astro + TypeScript strict + Tailwind CSS con estructura profesional.
+- Agrega `auto-testing` skill: toolkit para ejecutar tests automáticos en proyectos JS/TS (Vitest/Jest).
+- Agrega assets y referencias a `skill-apple-ui` (temas CSS, plantillas, patrones de menú y hero).
+- Documenta las 3 skills incluidas en el README con tabla de descripciones.
+
+### Changed
+- Reestructura `skill-apple-ui/skill.md` con metadatos YAML, pasos prácticos, ejemplos y assets referenciados.
+- Simplifica `skill-apple-ui/examples.md` a 3 prompts esenciales en lugar de 13 ejemplos detallados.
+
 ## 1.0.3 - 2026-05-10
 
 ### Added

@@ -81,7 +81,7 @@ En la opcion `Buscar skills`, si hay coincidencias puedes seleccionar una skill 
 | Listar skills | `pnpm dlx @cofradiapartner/skills list` |
 | Buscar skills | `pnpm dlx @cofradiapartner/skills search apple` |
 | Instalar una skill | `pnpm dlx @cofradiapartner/skills install skill-apple-ui` |
-| Instalar varias | `pnpm dlx @cofradiapartner/skills install skill-apple-ui skill-brand-ui` |
+| Instalar varias | `pnpm dlx @cofradiapartner/skills install skill-apple-ui astro-ts-tw-base` |
 | Instalar todas | `pnpm dlx @cofradiapartner/skills install --all` |
 | Usar target custom | `pnpm dlx @cofradiapartner/skills install skill-apple-ui --target docs/ai-skills` |
 | Instalar global | `pnpm dlx @cofradiapartner/skills install skill-apple-ui --global` |
@@ -129,7 +129,11 @@ npm run build
 
 ## Skills Incluidas
 
-- `skill-apple-ui`
+| Skill | Descripcion |
+| --- | --- |
+| `skill-apple-ui` | Crea interfaces web/moviles con diseno premium, minimalista y moderno inspirado en Apple. Incluye componentes UI, cards suaves, sombras sutiles y microinteracciones. |
+| `astro-ts-tw-base` | Inicializa un proyecto completo con Astro, TypeScript strict y Tailwind CSS configurado con estructura profesional `src/` y alias de rutas. |
+| `auto-testing` | Ejecuta tests automaticos en proyectos JS/TS. Detecta el stack, instala Vitest o Jest, corre los tests y genera un reporte JSON con resultados y sugerencias. |
 
 ## Documentacion Interna
 
