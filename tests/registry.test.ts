@@ -26,7 +26,7 @@ describe("SkillRegistry", () => {
     const registry = createLocalRegistry(path.resolve(process.cwd(), "skills"));
     const skill = await registry.getSkill("skill-apple-ui");
 
-    expect(skill.name).toBe("Apple UI");
+    expect(skill.name).toBe("apple-ui");
     expect(skill.description.length).toBeGreaterThan(0);
     expect(skill.sourcePath).toBe(path.resolve(process.cwd(), "skills", "skill-apple-ui"));
   });
@@ -37,7 +37,7 @@ describe("SkillRegistry", () => {
     const byId = await registry.searchSkills("skill-apple-ui");
     expect(byId.some((skill) => skill.id === "skill-apple-ui")).toBe(true);
 
-    const byName = await registry.searchSkills("apple ui");
+    const byName = await registry.searchSkills("apple-ui");
     expect(byName.some((skill) => skill.id === "skill-apple-ui")).toBe(true);
 
     const byDescription = await registry.searchSkills("minimalistas");

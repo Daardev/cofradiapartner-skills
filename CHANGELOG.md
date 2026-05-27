@@ -1,5 +1,16 @@
 # @cofradiapartner/skills
 
+## 1.0.7 - 2026-05-27
+
+### Added
+- Agrega `gh-release` skill: prepara y publica proyectos en GitHub con version, tag annotated y changelog.
+- Agrega `examples.md` y `README.md` a `astro-ts-tw-base` y `auto-testing` para cumplir con la validacion de skills.
+
+### Fixed
+- Corrige `SKILL.md` → `skill.md` (lowercase) en `astro-ts-tw-base` y `auto-testing` para que pasen validacion.
+- Corrige tests de registry para reflejar el metadata actualizado de `skill-apple-ui`.
+- Excluye `skills/` y `.opencode/` de la busqueda de tests en Vitest.
+
 ## 1.0.6 - 2026-05-27
 
 ### Added

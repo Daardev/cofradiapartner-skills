@@ -134,6 +134,7 @@ npm run build
 | `skill-apple-ui` | Crea interfaces web/moviles con diseno premium, minimalista y moderno inspirado en Apple. Incluye componentes UI, cards suaves, sombras sutiles y microinteracciones. |
 | `astro-ts-tw-base` | Inicializa un proyecto completo con Astro, TypeScript strict y Tailwind CSS configurado con estructura profesional `src/` y alias de rutas. |
 | `auto-testing` | Ejecuta tests automaticos en proyectos JS/TS. Detecta el stack, instala Vitest o Jest, corre los tests y genera un reporte JSON con resultados y sugerencias. |
+| `gh-release` | Prepara y publica proyectos en GitHub con disciplina de release: version semantica, tag annotated, changelog y push a GitHub. |
 
 ## Documentacion Interna
 
